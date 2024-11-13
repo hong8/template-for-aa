@@ -8,15 +8,14 @@ spec:
     matchLabels:
       app: template-for-aa
   replicas: 2
-  revisionHistoryLimit: 1
   template:
     metadata:
       labels:
         app: template-for-aa
     spec:
       containers:
-        - name: template-for-aa
-          image: dockerimage주소:태그
+        - name: template-for-aa-82272688.ce-aa.kubepia.net
+          image: cepgbaseacr.azurecr.io/template-for-aa:latest
           imagePullPolicy: Always
           resources:
             requests:
@@ -44,7 +43,7 @@ metadata:
   namespace: default
 spec:
   rules:
-    - host: 도메인주소
+    - host: template-for-aa-
       http:
         paths:
           - path: /
