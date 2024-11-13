@@ -10,4 +10,9 @@ public class TodoController {
     public String home() {
         return "todoList";
     }
+
+    @GetMapping("/api/vi/user")
+    public String userId() {
+        return "82272688";
+    }
 }
