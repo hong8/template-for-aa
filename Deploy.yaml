@@ -14,7 +14,7 @@ spec:
         app: template-for-aa
     spec:
       containers:
-        - name: template-for-aa-82272688.ce-aa.kubepia.net
+        - name: template-for-aa
           image: cepgbaseacr.azurecr.io/template-for-aa:latest
           imagePullPolicy: Always
           resources:
@@ -43,7 +43,7 @@ metadata:
   namespace: default
 spec:
   rules:
-    - host: template-for-aa-
+    - host: template-for-aa-82272688.ce-aa.kubepia.net
       http:
         paths:
           - path: /
