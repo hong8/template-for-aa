@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: template-for-aa
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: template-for-aa
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: template-for-aa
+    spec:
+      containers:
+        - name: template-for-aa-82272688.ce-aa.kubepia.net
+          image: cepgbaseacr.azurecr.io/template-for-aa:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 500m
+              memory: 200Mi
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: template-for-aa-svc
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: category-demo
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: template-for-aa-ingress
+  namespace: default
+spec:
+  rules:
+    - host: template-for-aa-
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: category-demo-svc
+              servicePort: 80
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: template-for-aa-configmap
+data:
+  aa: "1"
+  bb: "2"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: template-for-aa-pvc
+  namespace: default
+spec:
+  storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
+  volumeName: template-for-aa-pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: template-for-aa-pv
+spec:
+  storageClassName: ""
+  claimRef:
+    name: template-for-aa-pvc
+    namespace: default
